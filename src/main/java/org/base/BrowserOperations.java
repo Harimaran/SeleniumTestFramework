@@ -14,37 +14,37 @@ public class BrowserOperations extends DriverFactory{
         driver = getDriverInstance();
     }
 
-    static BrowserOperations getInstance(){
+    public static BrowserOperations getInstance(){
         return browserOperations;
     }
 
-    static BrowserOperations openBrowser(Browser browser) {
+    public static BrowserOperations openBrowser(Browser browser) {
         browserOperations = new BrowserOperations(browser);
         return browserOperations;
     }
 
-    boolean openPage(String url){
+    public boolean openPage(String url){
         driver.get(url);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         return true;
     }
 
-    boolean refreshPage(){
+    public boolean refreshPage(){
         driver.navigate().refresh();
         return true;
     }
 
-    boolean gotoPreviousPage(){
+    public boolean gotoPreviousPage(){
         driver.navigate().back();
         return true;
     }
 
-    boolean gotoNextPage(){
+    public boolean gotoNextPage(){
         driver.navigate().forward();
         return true;
     }
 
-    boolean quitBrowser(){
+    public boolean quitBrowser(){
         driver.quit();
         return true;
     }
