@@ -31,4 +31,3 @@ public class UiOperations {
         return true;
     }
 }
-

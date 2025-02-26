@@ -1,26 +1,17 @@
-package org.base;
+package org.uiOperations;
 
+import org.base.DriverFactory;
 import org.enums.Browser;
 import org.openqa.selenium.WebDriver;
 
 import java.time.Duration;
 
-public class BrowserOperations extends DriverFactory{
-    private static BrowserOperations browserOperations;
+public class BrowserOperations extends DriverFactory {
+
     private final WebDriver driver;
 
     public BrowserOperations(Browser browser){
-        super(browser);
-        driver = getDriverInstance();
-    }
-
-    public static BrowserOperations getInstance(){
-        return browserOperations;
-    }
-
-    public static BrowserOperations openBrowser(Browser browser) {
-        browserOperations = new BrowserOperations(browser);
-        return browserOperations;
+        driver = getDriverInstance(browser);
     }
 
     public boolean openPage(String url){

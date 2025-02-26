@@ -2,31 +2,28 @@ package org.base;
 
 import org.enums.Browser;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.edge.EdgeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 
 import java.util.Objects;
 
 public class DriverFactory {
-    private static WebDriver webDriver;
+    private static WebDriver driver;
+    private static boolean executeOnGrid = true;
 
-    DriverFactory (Browser browser){
-        webDriver = setDriver(browser);
-    }
+    public static WebDriver getDriverInstance(Browser browser){
+        if(Objects.nonNull(driver)) {
+            throw new IllegalStateException("Already have active session. Cannot instantiate multiple Driver");
+        }
 
-    private WebDriver setDriver(Browser browser) {
-        return webDriver = switch (browser) {
-            case EDGE -> new EdgeDriver();
-            case FIREFOX -> new FirefoxDriver();
-            default -> new ChromeDriver();
-        };
+        if(executeOnGrid) driver = new GridDrivermanager().getDriverInstance(browser);
+        else driver = new WebDriverInstanceManager().getDriverInstance(browser);
+
+        return driver;
     }
 
     public static WebDriver getDriverInstance(){
-        if(Objects.isNull(webDriver)) {
+        if(Objects.isNull(driver)) {
             throw new IllegalStateException("Currently, Browser driver not instantiated please initiate driver");
         }
-        return webDriver;
+        return driver;
     }
 }
